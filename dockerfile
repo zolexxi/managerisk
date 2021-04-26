@@ -13,7 +13,7 @@ RUN python -m venv venv
 RUN venv/bin/pip install -r requirements.txt
 
 COPY app app
-COPY flasky.py config.py boot.sh ./
+COPY managerisk.py config.py boot.sh ./
 
 # runtime configuration
 EXPOSE 5000
