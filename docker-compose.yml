@@ -1,8 +1,14 @@
-version: '3.7'
-
+version: '3'
 services:
-  web:
-    build: ./
-    command: gunicorn --bind 0.0.0.0:5000 managerisk:app
+  flasky:
+    build: .
     ports:
-      - 5000:5000
+      - "5000:5000"
+    env_file: .env
+    restart: always
+    links:
+      - postgres:dbserver
+  postgres:
+    image: "postgres:10"
+    env_file: .env-postgres
+    restart: always
