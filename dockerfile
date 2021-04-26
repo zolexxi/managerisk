@@ -1,4 +1,4 @@
-FROM python:3.8-alpine
+FROM python:3.9-alpine
 
 ENV FLASK_APP managerisk.py
 ENV FLASK_CONFIG docker

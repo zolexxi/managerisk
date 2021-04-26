@@ -1,4 +1,3 @@
 #!/bin/sh
 source venv/bin/activate
-flask deploy
-exec gunicorn -b 0.0.0.0:5000 --access-logfile - --error-logfile - mangerisk:app
+exec gunicorn --bind 0.0.0.0:5000 managerisk:app
