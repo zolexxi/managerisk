@@ -39,7 +39,9 @@ class DockerConfig(ProductionConfig):
         file_handler = StreamHandler()
         file_handler.setLevel(logging.INFO)
         app.logger.addHandler(file_handler)
+
 # Dictionary with all available configs. Add new entry if you add another config class
+
 config = {
     'production': ProductionConfig,
     'docker': DockerConfig,
