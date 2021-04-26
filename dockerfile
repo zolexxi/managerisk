@@ -6,7 +6,7 @@ ENV FLASK_CONFIG docker
 RUN adduser -D flasky
 USER flasky
 
-WORKDIR /home/managerisk
+WORKDIR /home/managerisk-app
 
 COPY requirements.txt requirements.txt
 RUN python -m venv venv
