@@ -3,6 +3,13 @@ from . import db
 import pandas as pd
 import numpy as np
 from flask_login import login_required, current_user
+import requests
+from sqlalchemy import create_engine, Table, MetaData, select
+import pymysql
+from json2html import *
+
+engine = create_engine('mysql+pymysql://asterisk:asterisk@192.168.0.106:3306/asterisk')
+connection = engine.connect()
 
 main = Blueprint('main', __name__)
 
@@ -67,3 +74,30 @@ def usermake_get():
     db.session.add(new_endpoint)  # Adds new endpoint record to database
     db.session.commit()  # Commits all changes
     return make_response(f"{new_user} successfully created!")
+
+@main.route('/userlist')
+@login_required
+def userlist():
+    metadata = MetaData()
+    extensions = Table('ps_auths', metadata, autoload=True, autoload_with=engine)
+    stmt = select([extensions])
+    results = connection.execute(stmt).fetchall()
+    df = pd.DataFrame(results)
+    df.columns = results[0].keys()
+    dfhtml = df.to_html()
+    return render_template('userlist.html', name='logins', ps_auths=dfhtml)
+
+@main.route('/userstatus')
+@login_required
+def userstatus():
+   resp = requests.get('http://192.168.0.106:8088/ari/endpoints?api_key=asterisk:asterisk')
+   jresp = resp.json()
+   return render_template('userstatus.html', jresp=jresp)
+
+@main.route('/info')
+@login_required
+def info():
+   resp = requests.get('http://192.168.0.106:8088/ari/asterisk/info?api_key=asterisk:asterisk')
+   jresp = resp.json()
+   hresp = json2html.convert(json = jresp)
+   return render_template('info.html', hresp=json2html.convert(json = jresp))

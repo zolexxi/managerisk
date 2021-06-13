@@ -8,9 +8,7 @@ async def extension_status():
                       host='192.168.0.106', port=5038,
                       username='hello', secret='world')
     await manager.connect()
-    extension = await manager.send_action({'Action': 'ExtensionState',
-                                           'Exten': '555',
-                                           'Context': 'from-internal'})
+    extension = await manager.send_action({'Action': 'PJSIPShowEndpoints',})
     manager.close()
     pprint(extension)
 
