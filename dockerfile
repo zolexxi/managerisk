@@ -1,6 +1,6 @@
 FROM python:3.9-alpine
 
-ENV FLASK_APP managerisk.py
+ENV FLASK_APP project
 ENV FLASK_CONFIG docker
 
 RUN adduser -D flasky
