@@ -7,7 +7,7 @@ engine = create_engine('mysql+pymysql://asterisk:asterisk@192.168.0.106:3306/ast
 print(engine.table_names())
 
 metadata = MetaData()
-auths = Table('ps_auths'
+auths = Table('ps_aors'
 , metadata, autoload=True,
 autoload_with=engine)
 print(repr(auths))
